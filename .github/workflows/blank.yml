@@ -50,9 +50,9 @@ jobs:
           sudo apt update
           sudo apt upgrade
           sudo apt-get install curl gnupg2 ca-certificates lsb-release
-          echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx"     | tee /etc/apt/sources.list.d/nginx.list
-          echo "deb-src http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx"     | tee /etc/apt/sources.list.d/nginx.list
-          curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add -
+          echo "deb http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx"     | sudo tee /etc/apt/sources.list.d/nginx.list
+          echo "deb-src http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx"     | sudo tee /etc/apt/sources.list.d/nginx.list
+          curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
           sudo apt-get install nginx
           
       - name: hg
