@@ -1,0 +1,65 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      # Runs a set of commands using the runners shell
+      - name: depend
+        run: |
+          apt install build-essential ca-certificates zlib1g-dev libpcre3 libpcre3-dev tar unzip libssl-dev wget curl git cmake ninja-build golang
+          
+      - name: boringssl
+        run: |
+          git clone --depth=1 https://github.com/google/boringssl.git
+          cd boringssl
+          mkdir build
+          cd build
+          cmake -GNinja ..
+          ninja
+          cd ../..
+          mkdir -p boringssl/.openssl/lib
+          cp boringssl/build/crypto/libcrypto.a boringssl/build/ssl/libssl.a boringssl/.openssl/lib
+          cd boringssl/.openssl
+          ln -s ../include .
+          cd ../..
+          
+      - name: apt
+        run: |
+          apt update
+          apt upgrade
+          apt install curl gnupg2 ca-certificates lsb-release
+          echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx"     | tee /etc/apt/sources.list.d/nginx.list
+          echo "deb-src http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx"     | tee /etc/apt/sources.list.d/nginx.list
+          curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add -
+          apt install nginx
+          
+      - name: hg
+        run: |
+          apt install hgsubversion
+          hg clone -b quic https://hg.nginx.org/nginx-quic
+          apt-get build-dep nginx
+          cd nginx-quic
+          ./auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --modules-path=/usr/lib/nginx/modules --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --http-client-body-temp-path=/var/cache/nginx/client_temp --http-proxy-temp-path=/var/cache/nginx/proxy_temp --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp --http-scgi-temp-path=/var/cache/nginx/scgi_temp --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with-http_dav_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_realip_module --with-http_slice_module --with-http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-stream --with-stream_realip_module --with-stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt=-I../boringssl/include --with-ld-opt='-L../boringssl/build/ssl -L../boringssl/build/crypto' --with-http_v3_module --with-http_quic_module --with-stream_quic_module
+          make
