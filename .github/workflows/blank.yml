@@ -28,7 +28,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: depend
         run: |
-          apt install build-essential ca-certificates zlib1g-dev libpcre3 libpcre3-dev tar unzip libssl-dev wget curl git cmake ninja-build golang
+          apt-get install build-essential ca-certificates zlib1g-dev libpcre3 libpcre3-dev tar unzip libssl-dev wget curl git cmake ninja-build golang
           
       - name: boringssl
         run: |
@@ -49,15 +49,15 @@ jobs:
         run: |
           apt update
           apt upgrade
-          apt install curl gnupg2 ca-certificates lsb-release
+          apt-get install curl gnupg2 ca-certificates lsb-release
           echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx"     | tee /etc/apt/sources.list.d/nginx.list
           echo "deb-src http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx"     | tee /etc/apt/sources.list.d/nginx.list
           curl -fsSL https://nginx.org/keys/nginx_signing.key | apt-key add -
-          apt install nginx
+          apt-get install nginx
           
       - name: hg
         run: |
-          apt install hgsubversion
+          apt-get install hgsubversion
           hg clone -b quic https://hg.nginx.org/nginx-quic
           apt-get build-dep nginx
           cd nginx-quic
