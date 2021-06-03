@@ -66,4 +66,5 @@ jobs:
           make
       - uses: actions/upload-artifact@v2
         with:
+          name: nginx-quic
           path: /home/runner/work/nginx-quic/nginx-quic/nginx-quic/objs/nginx
