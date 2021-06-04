@@ -74,6 +74,7 @@ jobs:
         if: github.event_name == 'release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./home/runner/work/nginx-quic/nginx-quic/nginx-quic/objs/nginx
+          name: nginx-quic
+          path: /home/runner/work/nginx-quic/nginx-quic/nginx-quic/objs/nginx
           tag: ${{ github.ref }}
           file_glob: true
