@@ -24,6 +24,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get upgrade
+          sudo apt-get remove gcc-9
           sudo apt-get install build-essential ca-certificates zlib1g-dev libpcre3 libpcre3-dev tar unzip libssl-dev wget curl git cmake ninja-build gnupg2 lsb-release libunwind-dev gcc-11
           echo "deb https://nginx.org/packages/mainline/debian `lsb_release -cs` nginx"     | sudo tee /etc/apt/sources.list.d/nginx.list
           echo "deb-src http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx"     | sudo tee /etc/apt/sources.list.d/nginx.list
