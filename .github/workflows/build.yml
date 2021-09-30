@@ -24,20 +24,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get upgrade
-          sudo apt-get install build-essential ca-certificates zlib1g-dev libpcre3 libpcre3-dev tar unzip libssl-dev wget curl git cmake ninja-build gnupg2 lsb-release libunwind-dev
+          sudo apt-get install build-essential ca-certificates zlib1g-dev libpcre3 libpcre3-dev tar unzip libssl-dev wget curl git cmake ninja-build gnupg2 lsb-release libunwind-dev gcc-11
           echo "deb https://nginx.org/packages/mainline/debian `lsb_release -cs` nginx"     | sudo tee /etc/apt/sources.list.d/nginx.list
           echo "deb-src http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx"     | sudo tee /etc/apt/sources.list.d/nginx.list
           curl -fsSL https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
           sudo apt-get install nginx
           
-      - name: Install GCC
-        uses: egor-tensin/setup-gcc@v1
-        with:
-          version: 11
-          platform: x64
-          cygwin: 0
-          cc: 1
-          hardlinks: 0
   
       - name: boringssl
         run: |
