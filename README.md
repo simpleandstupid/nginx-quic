@@ -12,5 +12,5 @@ To enable GSO (Generic Segmentation Offloading):
 
     quic_gso on;
 
-    By default this Linux-specific optimization is disabled.
+    #By default this Linux-specific optimization is disabled.
     Enable if your network interface is configured to support GSO.
