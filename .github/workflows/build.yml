@@ -1,4 +1,4 @@
-name: build nginx-quic
+name: build nginx-boringsslquic
 
 on:
   pull_request:
