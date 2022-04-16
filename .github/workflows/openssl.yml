@@ -66,7 +66,7 @@ jobs:
         if: github.event_name == 'release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          asset_name: nginx-quic
+          asset_name: nginx-quic-openssl
           file: /home/runner/work/nginx-quic/nginx-quic/nginx-quic/objs/nginx
           tag: ${{ github.ref }}
           overwrite: true
