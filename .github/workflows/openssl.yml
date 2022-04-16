@@ -45,6 +45,7 @@ jobs:
           ./Configure
           sudo make
           sudo make install
+          sudo ldconfig /usr/local/lib64/
           openssl version -d
           
           
