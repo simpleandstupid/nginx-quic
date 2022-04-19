@@ -35,11 +35,6 @@ jobs:
          version: 11
          platform: x64
          
-      - name: Cache
-        uses: actions/cache@v3.0.2
-        with:
-         path: 
-               ../openssl
             
   
       - name: openssl
