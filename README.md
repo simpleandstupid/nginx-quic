@@ -3,7 +3,7 @@
 [![build nginx-opensslquic](https://github.com/Funny-T/nginx-quic/actions/workflows/openssl.yml/badge.svg)](https://github.com/Funny-T/nginx-quic/actions/workflows/openssl.yml)
 
 
-使用GitHub Action编译nginx-quic，基于最新[源码](https://hg.nginx.org/nginx-quic)
+使用GitHub Action编译nginx-quic，基于最新[源码](https://hg.nginx.org/nginx)
 
 [测试你的浏览器对quic的支持](https://quic.nginx.org/quic.html)
 [测试服务器对HTTP/3的支持](https://http3check.net)
@@ -18,4 +18,3 @@ To enable GSO (Generic Segmentation Offloading):
     #By default this Linux-specific optimization is disabled.
     Enable if your network interface is configured to support GSO.
 
-注意：--with-http_quic_module,--with-stream_quic_module已弃用，请删除该项
