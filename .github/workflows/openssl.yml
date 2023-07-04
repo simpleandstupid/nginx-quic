@@ -61,7 +61,7 @@ jobs:
       - uses: actions/upload-artifact@v3.1.2
         with:
           name: nginx
-          path: /home/runner/work/nginx-quic/nginx-quic/nginx-quic/objs/nginx
+          path: /home/runner/work/nginx-quic/nginx-quic/nginx/objs/nginx
           
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
@@ -69,6 +69,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           asset_name: nginx-openssl
-          file: /home/runner/work/nginx-quic/nginx-quic/nginx-quic/objs/nginx
+          file: /home/runner/work/nginx-quic/nginx-quic/nginx/objs/nginx
           tag: ${{ github.ref }}
           overwrite: true
